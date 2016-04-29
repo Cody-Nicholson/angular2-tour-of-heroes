@@ -59,8 +59,8 @@ gulp.task('tsconfig-glob', function () {
 });
 
 
-var adminSessionProxy = proxy('/api', {
-  target: 'http://0.0.0.0:6551',
+var apiProxy = proxy('/api', {
+  target: 'http://0.0.0.0:6551'
 });
 
 // Run browsersync for development
@@ -68,8 +68,7 @@ gulp.task('serve', ['build'], function() {
   browserSync({
     server: {
       baseDir: 'dist',
-      //port: 7777,
-      middleware: [adminSessionProxy]
+      middleware: [apiProxy]
     }
   });
 
