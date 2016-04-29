@@ -3,18 +3,17 @@
   "version": "0.0.1",
   "scripts": {
     "tslint": "tslint -c tslint.json app/**/*.ts",
-    "postinstall": "tsd install"
+    "postinstall": "tsd install",
+    "serve": "gulp serve"
   },
   "dependencies": {
-    "angular2": "^2.0.0-beta.0",
+    "angular2": "2.0.0-beta.15",
+    "systemjs": "0.19.26",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.6.10",
     "es6-promise": "^3.0.2",
-    "es6-shim": "^0.33.13",
-    "immutable": "^3.7.6",
-    "node-uuid": "^1.4.7",
-    "reflect-metadata": "^0.1.2",
-    "rxjs": "^5.0.0-beta.0",
-    "systemjs": "^0.19.8",
-    "zone.js": "^0.5.10"
+    "es6-shim": "^0.35.0"
   },
   "devDependencies": {
     "browser-sync": "^2.10.0",
@@ -23,9 +22,11 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tslint": "^3.6.0",
     "gulp-typescript": "^2.8.0",
+    "http-proxy-middleware": "^0.14.0",
     "tsconfig-glob": "^0.3.3",
     "tsd": "^0.6.5",
     "tslint": "^3.2.1",
-    "typescript": "^1.7.3"
+    "typescript": "^1.8.10",
+    "typings": "^0.7.12"
   }
 }

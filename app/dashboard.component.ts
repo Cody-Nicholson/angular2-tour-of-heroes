@@ -1,8 +1,8 @@
-import {Component, OnInit} from 'angular2/core';
-import {Router} from 'angular2/router';
-import {Hero} from './hero';
-import {HeroService} from './hero.service';
-import { List } from 'immutable';
+import { Component, OnInit } from 'angular2/core';
+import { Router } from 'angular2/router';
+
+import { Hero } from './hero';
+import { HeroService } from './hero.service';
 
 @Component({
   selector: 'my-dashboard',
@@ -10,15 +10,21 @@ import { List } from 'immutable';
   styleUrls: ['app/dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public heroes = List<Hero>();
 
-  constructor(private _heroService: HeroService, private _router: Router) { }
+  heroes: Hero[] = [];
+
+  constructor(
+    private _router: Router,
+    private _heroService: HeroService) {
+  }
 
   ngOnInit() {
-    this._heroService.getHeroes().then(heroes => this.heroes = List<Hero>(heroes.slice(1, 5)));
+    this._heroService.getHeroes()
+      .then(heroes => this.heroes = heroes.slice(1, 5));
   }
 
   gotoDetail(hero: Hero) {
-    this._router.navigate(['HeroDetail', { id: hero.id }]);
+    let link = ['HeroDetail', { id: hero.id }];
+    this._router.navigate(link);
   }
 }

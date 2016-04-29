@@ -1,33 +1,47 @@
-import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {HeroesComponent} from './heroes.component';
-import {HeroDetailComponent} from './hero-detail.component';
-import {DashboardComponent} from './dashboard.component';
-import {HeroService} from './hero.service';
+import { Component } from 'angular2/core';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+
+import { DashboardComponent } from './dashboard.component';
+import { HeroesComponent } from './heroes.component';
+import { HeroDetailComponent } from './hero-detail.component';
+import { HeroService } from './hero.service';
 
 @Component({
   selector: 'my-app',
   template: `
     <h1>{{title}}</h1>
-    <a [routerLink]="['Dashboard']">Dashboard</a>
-    <a [routerLink]="['Heroes']">Heroes</a>
+    <nav>
+      <a [routerLink]="['Dashboard']">Dashboard</a>
+      <a [routerLink]="['Heroes']">Heroes</a>
+    </nav>
     <router-outlet></router-outlet>
   `,
-  styles: [`
-    a {padding: 5px;text-decoration: none;}
-    a:visited, a:link {color: #444;}
-    a:hover {color: white; background-color: #1171a3;}
-    a.router-link-active {color: white; background-color: #52b9e9;}
-  `],
+  styleUrls: ['app/app.component.css'],
   directives: [ROUTER_DIRECTIVES],
-  providers: [HeroService]
+  providers: [
+    ROUTER_PROVIDERS,
+    HeroService
+  ]
 })
 @RouteConfig([
-  // {path: '/', redirectTo: ['Dashboard'] },
-  {path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true},
-  {path: '/heroes', name: 'Heroes', component: HeroesComponent},
-  {path: '/detail/:id', name: 'HeroDetail', component: HeroDetailComponent}
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: DashboardComponent,
+    useAsDefault: true
+  },
+  {
+    path: '/detail/:id',
+    name: 'HeroDetail',
+    component: HeroDetailComponent
+  },
+  {
+    path: '/heroes',
+    name: 'Heroes',
+    component: HeroesComponent
+  }
 ])
 export class AppComponent {
-  public title = 'Tour of Heroes';
+  title = 'Tour of Heroes';
 }
+

@@ -7,6 +7,7 @@ const tslint = require('gulp-tslint');
 const browserSync = require('browser-sync');
 const reload = browserSync.reload;
 const tsconfig = require('tsconfig-glob');
+const proxy = require('http-proxy-middleware');
 
 // clean the contents of the distribution directory
 gulp.task('clean', function () {
@@ -27,8 +28,6 @@ gulp.task('copy:libs', ['clean'], function() {
       'node_modules/rxjs/bundles/Rx.js',
       'node_modules/angular2/bundles/angular2.dev.js',
       'node_modules/angular2/bundles/router.dev.js',
-      'node_modules/node-uuid/uuid.js',
-      'node_modules/immutable/dist/immutable.js'
     ])
     .pipe(gulp.dest('dist/lib'))
 });
@@ -44,7 +43,7 @@ gulp.task('tslint', function() {
 // TypeScript compile
 gulp.task('compile', ['clean'], function () {
   return gulp
-    .src(tscConfig.files)
+    .src('app/**/*.ts')
     .pipe(sourcemaps.init())
     .pipe(typescript(tscConfig.compilerOptions))
     .pipe(sourcemaps.write('.'))
@@ -59,11 +58,18 @@ gulp.task('tsconfig-glob', function () {
   });
 });
 
+
+var adminSessionProxy = proxy('/api', {
+  target: 'http://0.0.0.0:6551',
+});
+
 // Run browsersync for development
 gulp.task('serve', ['build'], function() {
   browserSync({
     server: {
-      baseDir: 'dist'
+      baseDir: 'dist',
+      //port: 7777,
+      middleware: [adminSessionProxy]
     }
   });
 
